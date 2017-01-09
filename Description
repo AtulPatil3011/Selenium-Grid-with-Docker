@@ -1,0 +1,12 @@
+Images included:
+    selenium/base: Base image which includes Java runtime and Selenium JAR file
+    selenium/hub: Image for running a Selenium Grid Hub
+    selenium/node-base: Base image for Selenium Grid Nodes which includes a virtual desktop environment and VNC support
+    selenium/node-chrome: Selenium node with Chrome installed, needs to be connected to a Selenium Grid Hub
+    selenium/node-firefox: Selenium node with Firefox installed, needs to be connected to a Selenium Grid Hub
+    selenium/standalone-chrome: Selenium standalone with Chrome installed
+    selenium/standalone-firefox: Selenium standalone with Firefox installed
+    selenium/standalone-chrome-debug: Selenium standalone with Chrome installed and runs a VNC server
+    selenium/standalone-firefox-debug: Selenium standalone with Firefox installed and runs a VNC server
+    selenium/node-chrome-debug: Selenium node with Chrome installed and runs a VNC server, needs to be connected to a Selenium Grid Hub
+    selenium/node-firefox-debug: Selenium node with Firefox installed and runs a VNC server, needs to be connected to a Selenium Grid Hub
