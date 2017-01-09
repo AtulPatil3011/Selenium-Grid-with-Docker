@@ -1,0 +1,46 @@
+In order to create the hub on our localhost, we need to pull and run container from Docker repository with selenium hub:
+
+$ docker run -d ‐‐name selenium-hub -p 4444:4444 selenium/hub 
+     --This command will download and run hub container on our localhost. When container’s downlaod is complete, visit http://localhost:4444/grid/console, and you should see an empty grid console (if you create your docker machine with different address than standard, change localhost to choosen IP).
+     
+Now we will create two nodes, one with Firefox and second with Chrome. To download and run chrome container:
+
+$ docker run -d -P ‐‐link selenium-hub:hub selenium/node-firefox
+$ docker run -d -P ‐‐link selenium-hub:hub selenium/node-chrome
+
+We should have three docker containers running on our local docker machine. We can check that with:
+
+$ docker ps
+   It will show created all continers.
+   
+  OR
+  
+Provisioning with docker-compose (yaml)
+vim  docker-compose.yml
+
+...
+seleniumhub:
+  image: selenium/hub
+  ports:
+    - 4444:4444
+
+firefoxnode:
+  image: selenium/node-firefox
+  ports:
+    - 5900
+  links:
+    - seleniumhub:hub
+
+chromenode:
+  image: selenium/node-chrome
+  ports:
+    - 5900
+  links:
+- seleniumhub:hub
+
+Note: File structure is rather simple. We’ve defined seleniumhub entity, pointed image name (images can be found in docker hub repository) and assign ports. Then, we’ve defined two node entities: chromenode and firefoxnode. Important thing here is that we have to link them to seleniumhub container. Since it’s and yaml file, you should be aware of proper indentation. When our file is ready, run:
+
+
+$ docker-compose up -d
+
+  {If everything went smooth, you can check docker ps or point directly to your browser and open http://localhost:4444/grid/console. In result, just like previously there is hub with two nodes, but this time the configuration is define in one file and can be run with one command. Docker-compose file can be added now to your repository and reuse.}
